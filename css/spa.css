@@ -1,0 +1,85 @@
+* * spa.css * Root namespace styles */
+/** 重置大多数选择器。我们不信任浏览器的默认行为。 CSS 作者会把这当做一种惯例，尽管这并不是没有争议的。 */
+
+/** Begin reset */
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin-bottom: 10px;
+}
+
+ol, ul, dl {
+	list-style-position: inside;
+}
+
+/** End reset */
+
+/** 修改标准选择器。我们在此不信任浏览器的默认行为，因为对于某种类型的元素，我们希望确保跨平台应用有一致的外观。可以（并且将会）在其他文件中修改更多特定的选择器。 */
+
+/** Begin standard selectors */
+
+body {
+	font: 13px 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
+	color: #444;
+	background-color: #888;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link, a:visited {
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+strong {
+	font-weight: 800;
+	color: #000;
+}
+
+/** End standard selectors */
+
+/** 定義選擇器的名字空間。通常使用根名字作為元素選擇器，如 #spa 。 */
+
+/** Begin spa namespace selectors */
+
+#spa {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	bottom: 8px;
+	right: 8px;
+	min-height: 500px;
+	min-width: 500px;
+	overflow: hidden;
+	background-color: #fff;
+	border-radius: 0 8px 0 8px;
+}
+
+/** End spa namespace selectors */
+
+/** 為其他所有模塊提供通用選擇器。它們以 spa-x- 作為前綴。 */
+
+/** Begin utility selectors */
+
+/* .spa-x-select {} */
+
+.spa-x-clearfloat {
+	height: 0 !important;
+	float: none !important;
+	visibility: hidden !important;
+	clear: both !important;
+}
+
+/** End utility selectors */
