@@ -181,7 +181,7 @@ spa.shell = (function () {
 		// Begin merge changes into anchor map
 		KEYVAL:
 		for (key_name in arg_map) {
-			if (arg_map.hsaOwnProperty(key_name)) {
+			if (arg_map.hasOwnProperty(key_name)) {
 
 				// skip dependent keys during iteration
 				if (key_name.indexOf('_') === 0) {
@@ -207,11 +207,11 @@ spa.shell = (function () {
 		// 如果不能通过模式(schema)验证就不设置锚(uriAnchor 会抛出异常)。当发生这样的情况时，把锚组件回滚到它之前的状态。
 		// Begin attempt to update URI; revert if not successful
 		try {
-			$uriAnchor.setAnchor(anchor_map_revise);
+			$.uriAnchor.setAnchor(anchor_map_revise);
 		}
 		catch (error) {
 			// replace URI with existing state
-			$uriAnchor.setAnchor(stateMap.anchor_map, null, true);
+			$.uriAnchor.setAnchor(stateMap.anchor_map, null, true);
 			bool_return = false;
 		}
 		// End attempt to update URI...
@@ -326,6 +326,10 @@ spa.shell = (function () {
 		$.uriAnchor.configModule({
 			schema_map: configMap.anchor_schema_map
 		});
+
+		// configure and initializes feature modules
+		spa.chat.configModule({});
+		spa.chat.initModule(jqueryMap.$chat);
 
 		// Handle URI anchor change events.
 		// This id done /after/ all feature modules are configured and initialized, otherwise they will not be ready to handle the trigger event, which is used to ensure the anchor is considered on-load
