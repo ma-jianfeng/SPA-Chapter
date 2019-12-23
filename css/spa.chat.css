@@ -2,3 +2,76 @@
  * spa.chat.css
  * Chat feature styles
 */
+
+/* 给聊天滑块定义 spa-chat 类。我们使用了一点阴影效果。和 Chat 所有其他的选择器一样，转而使用相对单位。 */
+.spa-chat {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25em;
+    height: 2em;
+    background: #fff;
+    border-radius: 0.5em 0 0 0;
+    border-style: solid;
+    border-width: thin 0 0 thin;
+    border-color: #888;
+    box-shadow: 0 0 0.75em 0 #888;
+    z-index: 1;
+}
+
+/* 给 spa-chat-head 和 spa-chat-closer 类添加通用规则。 这么做可以帮助我们采用 DRY(Don't Repeat Yourself) 准则。但如果说过一次，就表明已经说过上千次：我们痛恨这个首字母缩略词。 */
+.spa-chat-head {
+    position: absolute;
+    top: 0;
+    height: 2em;
+    line-height: 1.8em;
+    border-bottom: thin solid #888;
+    cursor: pointer;
+    background: #888;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    text-align: center;
+}
+
+/* 给 spa-chat-head 类添加特殊规则。我们希望拥有这个类的元素会包含 spa-chat-head-toggle 和 spa-chat-head-title 类的元素。 */
+.spa-chat-head {
+    left: 0;
+    right: 2em;
+    border-radius: 0.3em 0 0 0;
+}
+
+/* 定义 spa-chat-closer 类，在右上角显示一个小小的[x]。请注意，它没有包含在头部里面，因为我们希望头部是打开和关闭滑块的热区(hotspot),关闭按钮有不同的功能。我们还添加了一个派生的 :hover 伪类，当鼠标经过元素时，会高亮该元素。 */
+.spa-chat-closer {
+    right: 0;
+    width: 2em;
+}
+.spa-chat-closer:hover {
+    background: #800;
+}
+
+/* 给切换按钮创建 spa-chat-head-toggle 类。顾名思义，我们打算把拥有该样式的元素包含在 spa-chat-head 类的元素中。 */
+.spa-chat-head-toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2em;
+    bottom: 0;
+    border-radius: 0.3em 0 0 0;
+}
+
+/* 创建 spa-chat-head-toggle 类。顾名思义，我们希望拥有该样式的元素包含在 spa-chat-head 类的元素中。我们使用标准的“负外边距”技巧，把元素定位在中央(请用自行搜索该技巧的详细信息)。 */
+.spa-chat-head-title {
+    position: absolute;
+    left: 50%;
+    width: 16em;
+    margin-left: -8em;
+}
+
+/* 定义 spa-chat-sizer 类，这样就可以提供固定尺寸的元素来包含滑块内容。 */
+.spa-chat-sizer {
+    position: absolute;
+    top: 2em;
+    left: 0;
+    right: 0;
+}
