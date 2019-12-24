@@ -75,3 +75,66 @@
     left: 0;
     right: 0;
 }
+
+/* 添加 spa-chat-msgs 类，用于显示消息的元素。我们隐藏了 x 轴的溢出部分，并始终提供垂直的滚动条(可以使用 overflow-y:auto，但当滚动条出现的时候，这会导致文本流被挤压的问题)。 */
+.spa-chat-msgs {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    right: 1em;
+    bottom: 4em;
+    padding: 0.5em;
+    border: thin solid #888;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/* 创建 spa-chat-box 类，用于包含文本框和发送按钮的元素。 */
+.spa-chat-box {
+    position: absolute;
+    height: 2em;
+    left: 1em;
+    right: 1em;
+    bottom: 1em;
+    border: thin solid #888;
+    background: #888;
+}
+
+/* 定义规则，给“在含有 spa-chat-box 类的任何元素中的任何文本框”添加样式。这是聊天输入框。 */
+.spa-chat-box input[type=text] {
+    float: left;
+    width: 75%;
+    height: 100%;
+    padding: 0.5em;
+    border: 0;
+    background: #ddd;
+    color: #404040;
+}
+
+/* 创建一个派生的 :focus 伪类，这样当用户选中了输入框，会增强对比度。 */
+.spa-chat-box input[type=text]:focus {
+    background: #fff;
+}
+
+/* 定义规则，给“在 spa-chat-box 类中的任何 div 元素”添加样式。这里是发送按钮。 */
+.spa-chat-box div {
+    float: left;
+    width: 25%;
+    height: 2em;
+    line-height: 1.9em;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* 创建一个派生的 :hover 伪类，当用户的鼠标经过该发送按钮时，会高亮该发送按钮。 */
+.spa-chat-box div:hover {
+    background-color: #444;
+    color: #ff0;
+}
+
+/* 定义选择器，每当鼠标悬停在含有 spa-chat-head 类的元素上时，该选择器会高亮有 spa-chat-head-toggle 类的元素。 */
+.spa-chat-head:hover .spa-chat-head-toggle {
+    background: #aaa;
+}
