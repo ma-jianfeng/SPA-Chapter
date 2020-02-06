@@ -69,7 +69,7 @@ spa.chat = (function () {
             px_per_em: 0,
             slider_hidden_px: 0,
             slider_closed_px: 0,
-            slider_opened_ps: 0
+            slider_opened_px: 0
         },
         jqueryMap = {},
 
@@ -101,12 +101,81 @@ spa.chat = (function () {
             $sizer: $slider.find('.spa-chat-sizer'),
             $msgs: $slider.find('.spa-chat-msgs'),
             $box: $slider.find('.spa-chat-box'),
-            $inout: $slider.find('.spa-chat-input input[type=text]')
+            $input: $slider.find('.spa-chat-input input[type=text]')
         };
     };
     // End DOM method /setJqueryMap/
 
     // TODO:2020-02-05
+
+    // 添加 setPxSize 方法，计算由该模块管理的元素的像素尺寸
+    // Begin DOM method /setPxSizes/
+    setPxSizes = function() {
+        var px_per_em, opened_height_em;
+        px_per_em = getEmSize(jqueryMap.$slider.get(0));
+
+        opened_height_em = configMap.slider_opened_em;
+
+        stateMap.px_per_em = px_per_em;
+        stateMap.slider_closed_px = config.slider_closed_em * px_per_em;
+        stateMap.slider_opened_px =opened_height_em * px_per_em;
+        jqueryMap.$sizer.css({
+            height: (opened_height_em - 2) * px_per_em
+        });
+    };
+    // End DOM method /setPxSizes/
+
+    // 添加 setSliderPosition 方法，依照本章先前的详细说明
+    // Begin public method /setSliderPosition/
+    // Example: spa.chat.setSliderPosition('closed');
+    // Purpose: Move the chat slider to the requested position
+    // Arguments: // * position_type - enum('closed', 'opened', or 'hidden')
+    // * callback - optional callback to be run end at the end of slider animation.
+    // the callback receives a jQuery collection representing the slider div as its single argument
+    // Action:
+    // This method moves the slider into the requested position.
+    // if the requested position is the current position , it returns true without taking further action
+    // Returns:
+    // * true - The requested position was achieved
+    // * false - The requested position was not achieved
+    // Throws: none
+    // 
+    setSliderPosition = function(position_type, callback) {
+        var 
+            height_px, animate_time, slider_title, toggle_text;
+
+    // return true if slider already in requested position
+    if(stateMap.position_type === position_type) {
+        return true;
+    }
+
+    // prepare animate parameters
+    switch(position_type) {
+        case 'opened':
+            height_px = stateMap.slider_opened_px;
+            animate_time = configMap.slider_open_time;
+            slider_title = configMap.slider_opened_title;
+            toggle_text = '=';
+        break;
+
+        case 'hidden':
+            height_px = 0;
+            animate_time = configMap.slider_open_time;
+            slider_title = '';
+            toggle_text = '+';
+        break;
+
+        case 'closed':
+            height_px = stateMap.slider_closed_px;
+            animate_time = configMap.slider_close_time;
+            slider_title = configMap.slider_closed_title;
+            toggle_text = '+';
+        break;
+        // bail for unknown position_type
+        default: return false;
+    }
+    // TODO: 2020-02-06 周四
+    }
     
     // --------------------- END DOM METHODS -----------------------------
 
