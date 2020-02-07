@@ -17,8 +17,9 @@ spa.shell = (function () {
 		// 把静态配置值放在 configMap 变量中。
 		configMap = {
 			// 定义给 uriAnchor 使用的映射，用于验证。
+			// 把锚的状态更改为 opened 和 closed, 在 Chat 和 Shell 中保持一致。
 			anchor_schema_map: {
-				chat: { open: true, closed: true }
+				chat: { opened: true, closed: true }
 			},
 			main_html: String()      //缩进 HTML 字符串。这有助于理解并易于维护。
 				+ '<div class="spa-shell-head">'
@@ -31,25 +32,25 @@ spa.shell = (function () {
 				+ '<div class="spa-shell-main-content"></div>'
 				+ '</div>'
 				+ '<div class="spa-shell-foot"></div>'
-				+ '<div class="spa-shell-chat"></div>'
+				// + '<div class="spa-shell-chat"></div>' 移除聊天滑块的 HTML 和设置。
 				+ '<div class="spa-shell-modal"></div>',
 
-			// 根据需求1: "开发人员能够配置滑块运动的速度和高度"，在模块配置映射中保存收起和展开的时间和高度。
-			chat_extend_time: 1000,
-			chat_retract_time: 300,
-			chat_extend_height: 450,
-			chat_retract_height: 15,
-			// 根据需求1: "设置提醒信息文字来提示用户操作......",在 configMap 变量中添加收起时和展开时的标题文字。
-			chat_extended_title: 'Click to retract',
-			chat_retracted_title: 'Click to extend'
+			// // 根据需求1: "开发人员能够配置滑块运动的速度和高度"，在模块配置映射中保存收起和展开的时间和高度。
+			// chat_extend_time: 1000,
+			// chat_retract_time: 300,
+			// chat_extend_height: 450,
+			// chat_retract_height: 15,
+			// // 根据需求1: "设置提醒信息文字来提示用户操作......",在 configMap 变量中添加收起时和展开时的标题文字。
+			// chat_extended_title: 'Click to retract',
+			// chat_retracted_title: 'Click to extend'
 		},
 		// 将在整个模块中共享的动态信息放在 stateMap 变量中。
 		stateMap = {
-			$container: null,
+			// $container: null,
 			// 将当前锚的值保存在表示模块状态的映射中: stateMap.anchor_map 。
 			anchor_map: {},
 			// 在 stateMap 里面添加 is_chat_retracted 。在 stateMap 里面列出所有会用到的键是一种很好的做法，容易找到和查看。这会在 toggleChat 方法里面用到。
-			is_chat_retracted: true
+			// is_chat_retracted: true
 		},
 		// 将 jQuery 集中缓存在 jqueryMap 中。
 		jqueryMap = {},
@@ -57,7 +58,14 @@ spa.shell = (function () {
 		// 声明三个额外的方法: copyAnchorMap、changeAnchorPart 和 onHashchange 。
 		// 此部分声明所有模块作用域内的变量。很多都是在之后赋值。
 		// 在模块作用域的函数名字列表中添加 onClickChat 。
-		copyAnchorMap, setJqueryMap, toggleChat, changeAncorPart, onHashchange, onClickChat, initModule;        // 在模块作用域变量列表中，添加 toggleChat 方法。
+		copyAnchorMap
+		, setJqueryMap
+		// , toggleChat 从模块作用域变量列表中移除 toggleChat
+		, changeAnchorPart
+		, onHashchange
+		// , onClickChat
+		, setChatAnchor
+		, initModule;        // 在模块作用域变量列表中，添加 toggleChat 方法。
 
 	// --------------- END MODULE SCOPE VARIABLES ------------------
 
@@ -78,11 +86,12 @@ spa.shell = (function () {
 		var $container = stateMap.$container;
 		jqueryMap = { $container: $container };
 
-		// 将聊天滑块的 jQuery 集合缓存到 jqueryMap 中。
-		jqueryMap = {
-			$container: $container,
-			$chat: $container.find('.spa-shell-chat')
-		};
+		// 移除 toggleChat 方法。 从 jQueryMap 中移除 Chat元素。
+		// // 将聊天滑块的 jQuery 集合缓存到 jqueryMap 中。
+		// jqueryMap = {
+		// 	$container: $container,
+		// 	$chat: $container.find('.spa-shell-chat')
+		// };
 	};
 
 	// End DOM Method /setJqueryMap/
