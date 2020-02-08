@@ -12,7 +12,8 @@
 }
 
 h1, h2, h3, h4, h5, h6, p {
-	margin-bottom: 10px;
+	/* 外边距改为绝对单位(点) */
+	margin-bottom: 6pt;
 }
 
 ol, ul, dl {
@@ -26,7 +27,8 @@ ol, ul, dl {
 /** Begin standard selectors */
 
 body {
-	font: 13px 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
+	/* 字体大小改为绝对单位(点) */
+	font: 10pt 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
 	color: #444;
 	background-color: #888;
 }
@@ -56,15 +58,19 @@ strong {
 
 #spa {
 	position: absolute;
-	top: 8px;
-	left: 8px;
-	bottom: 8px;
-	right: 8px;
-	min-height: 500px;
-	min-width: 500px;
+	/* 移除 #spa div 的 8px 偏移。这使它和窗口的每一边都一样高。 */
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background : #fff;
+	/* 明显地减小 #spa div 的最小宽度和最小高度。将计量方式转换为相对单位(em)。 */
+	min-height: 15em;
+	min-width: 35em;
 	overflow: hidden;
-	background-color: #fff;
-	border-radius: 0 8px 0 8px;
+	/* 移除边框，因为不在需要它了。 */
+	/* background-color: #fff;
+	border-radius: 0 8px 0 8px; */
 }
 
 /** End spa namespace selectors */

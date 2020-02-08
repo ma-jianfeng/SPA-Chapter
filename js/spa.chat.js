@@ -117,7 +117,7 @@ spa.chat = (function () {
         opened_height_em = configMap.slider_opened_em;
 
         stateMap.px_per_em = px_per_em;
-        stateMap.slider_closed_px = config.slider_closed_em * px_per_em;
+        stateMap.slider_closed_px = configMap.slider_closed_em * px_per_em;
         stateMap.slider_opened_px = opened_height_em * px_per_em;
         jqueryMap.$sizer.css({
             height: (opened_height_em - 2) * px_per_em
